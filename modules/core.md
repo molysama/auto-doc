@@ -1,4 +1,4 @@
-## 核心模块
+# 核心模块
 
 模板是无代码依赖的，此核心模块是实践 auto 后设计的框架核心，非必须。
 
@@ -17,13 +17,13 @@ auto 应用有以下特点：
 -   core 设计了一个作业线程`effect$`，非 UI 线程的操作都可以在这个作业线程下进行，避免了开启多个线程。
 -   以插件包的形式提供网页、悬浮窗等模块，便于快速开发
 
-### 安装
+## 安装
 
 ```bash
 npm i "@auto.pro/core" -S
 ```
 
-### 使用
+## 使用
 
 ```javascript
 // src/index.js
@@ -66,3 +66,33 @@ core({
 
 -   needFloaty: `boolean`  
     是否需要悬浮窗权限
+
+## 作业线程 effect$
+
+`core` 提供了一个作业线程，初始化完毕后会推送一次事件。
+
+```javascript
+// src/index.js
+
+import core, { effect$ } from "@auto.pro/core"
+
+core()
+
+// core初始化完毕后，subscribe内的函数才会开始执行
+effect$.subscribe(() => {
+    toastLog("初始化完毕")
+})
+
+// 可以多次订阅
+effect$.subscribe(() => {
+    toastLog("第二次订阅")
+})
+
+// effect$会传递两个参数，分别是作业线程本身，以及作业线程的事件对象
+effect$.subscribe(([effectThread, effectEvent]) => {
+    toastLog(effectThread)
+})
+
+// 这段代码是在effect$之外的，它不会等待core的权限
+toastLog("hello,world")
+```
