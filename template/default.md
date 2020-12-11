@@ -13,13 +13,13 @@ auto-cli create auto-lesson1
 
 3. 使用 vscode 打开文件夹`auto-lesson1`，在终端执行`npm i`安装相关依赖。
 
-![alt 空模板](./images/default.png)
+![alt 空模板](../images/default.png)
 
 项目结构说明
 
 -   `assets`是静态资源文件夹，适合放图片、视频等资源。
 -   `src`文件夹放程序源码，源码是完全没有任何依赖的。
--   `webpack.config.js`是配置文件，详见之前的[模板说明](/template)。
+-   `webpack.config.js`是配置文件，详见之前的[模板说明](/template/template)。
 -   `project.json`是 auto 的项目配置文件。
 -   `package.json`是 node 的配置文件。
 -   `dist`是执行编译命令后自动生成的文件夹。
