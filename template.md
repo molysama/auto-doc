@@ -139,7 +139,7 @@ webpack 提供了多种文件输出模式，你可以根据自己的情况进行
     我们需要直接以项目方式运行，或直接以单个脚本方式运行，此时`output.libraryTarget`使用默认的`var`即可。
 
 -   `commonjs2`（制作模块）  
-    有时候我们想把功能抽离成模块，以便方便的复用，让其他 JS 文件能 require 或 import 这个模块，比如
+    有时候我们想把功能抽离成模块，以便复用，让其他 JS 文件能 require 或 import 这个模块，比如
 
 ```javascript
 // main.js

@@ -14,7 +14,7 @@
     -   [核心模块](modules/core.md)
     -   [网页模块](modules/webview.md)
     -   [webpack 插件](modules/webpack-plugin.md)
-    -   [webpack 加载器](modules/webview-loader.md)
+    -   [webpack 加载器](modules/webpack-loader.md)
 
 -   教程
     -   [使用 vue 作为 UI](vue.md)

@@ -25,6 +25,21 @@
                     paths: "auto",
                     placeholder: "搜索",
                 },
+                plugins: [
+                    function (hook) {
+                        var footer = [
+                            "<hr/>",
+                            "<footer>",
+                            '<span><a href="https://beian.miit.gov.cn/" target="_blank">桂ICP备2020008851号</a> &copy;2020.</span>',
+                            '<span>Proudly published with <a href="https://github.com/docsifyjs/docsify" target="_blank">docsify</a>.</span>',
+                            "</footer>",
+                        ].join("")
+
+                        hook.afterEach(function (html) {
+                            return html + footer
+                        })
+                    },
+                ],
             }
         </script>
         <!-- Docsify v4 -->
