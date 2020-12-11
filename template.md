@@ -131,6 +131,8 @@ const compilePlugin = new AutoProWebpackPlugin({
 })
 ```
 
+插件的详细情况请看[这里](/modules/webpack-plugin)
+
 ### 输出模式
 
 webpack 提供了多种文件输出模式，你可以根据自己的情况进行配置。

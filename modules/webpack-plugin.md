@@ -5,7 +5,7 @@
 ## 安装
 
 ```bash
-npm i @auto.pro/webpack-plugin
+npm i "@auto.pro/webpack-plugin" -D
 ```
 
 ## UI 模式
