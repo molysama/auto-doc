@@ -150,10 +150,12 @@ webview.runHtmlFunction("show", "molysama", "123456").subscribe((value) => {
         安卓的`Webview`对象
 
     -   on: `function (eventName: string): Observable<[any, Function]>`  
-        监听 html 的`eventName`事件，返回一个可观察对象，详细用法见上方示例。
+        监听 html 的`eventName`事件，返回一个可观察对象，用法见上方示例。
 
     -   runHtmlFunction: `function (fnName: string, ...value): Observable<any>`  
         执行`html`的`fnName`方法，详细用法见上方示例。
 
     -   runHtmlJS: `function(js: string): Observable`  
-        执行一行`html`的`javascript`代码，详细用法见上方示例。
+        执行一行`html`的`javascript`代码，用法见上方示例。
+
+`runHtmlFunction`和`runHtmlJS`返回的都是`RxJS`的可观察对象，[这里是一些基本用法](/example/ob)。
