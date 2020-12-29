@@ -20,5 +20,4 @@
 -   教程
     -   [使用 vue 作为 UI](/example/vue.md)
     -   [使用 angular 作为 UI](/example/angular.md)
-    -   [使用 layUI 作为 UI](/example/layUI.md)
     -   [可观察对象](/example/ob.md)
