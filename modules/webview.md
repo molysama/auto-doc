@@ -119,6 +119,7 @@ webview.runHtmlFunction("show", "molysama", "123456").subscribe((value) => {
 
         -   xmlString: `string` ui 布局
         -   webviewId: `string` ui 布局中 webview 的 id，设置自定义 ui 布局时必填
+        -   webviewObject: 可以自主传入 webview 对象，此时将不会创建新布局
         -   chromeClientOption: `object` 自定义 WebChromeClient 的事件，它的常用事件有
 
             -   onCreateWindow  
