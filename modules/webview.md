@@ -5,31 +5,39 @@
 ## 安装
 
 ```bash
-# 先安装依赖模块core
-npm i "@auto.pro/core" -S
+# auto端需要安装core包和webview包
+npm i "@auto.pro/core" "@auto.pro/webview" -S
 
-# 安装webview模块
-npm i "@auto.pro/webview" -S
+# html端需要安装web包
+npm i "@auto.pro/web" -S
 
 ```
 
+如果 html 没有使用模块加载机制，可以直接复制出`@auto.pro/web`包里的`src/index.js`来直接使用。
+
 ## 使用示例
 
-`webview`模块通信的本质是拦截和修改`html`的`prompt`事件。
-
 ```html
-<script>
-    // assets/index.html
+<!-- assets/index.html -->
 
-    function parse(param) {
-        return JSON.stringify(param)
-    }
+<!-- web.js为@auto.pro/web包的src/index.js，可直接从node_modules文件夹里找到 -->
+<script src="web.js">
+    <script>
 
-    document.documentElement.onclick = function () {
-        // prompt只能传递字符串，在传递任何参数前都要统一做parse处理
-        var result = prompt("hello", parse("world"))
-        console.log("get result: " + result)
-    }
+        function fn () {
+            alert('fn')
+        }
+
+        document.documentElement.onclick = function () {
+            // 触发auto的test通信事件，传递参数为123，不使用第三个参数时，html会等待auto的结果
+            const result = AutoWeb.auto('test', 123)
+
+            // 触发auto的test通信事件，传递参数为123，并指定为异步响应，异步响应可以接收到多个参数
+            AutoWeb.auto('test', 123, function (param1, param2, ...paramN) {
+                // auto端执行done后，将会执行此函数
+            })
+
+        }
 </script>
 ```
 
@@ -47,13 +55,13 @@ const HTML_PATH = "file://" + files.path("assets/index.html")
 
 const webview = run(HTML_PATH)
 
-// hello对应html里prompt的第一个值
-webview.on("hello").subscribe(([param, done]) => {
-    // html发送prompt事件后可以接受返回值，返回值由done传递回去
-    // done必须执行一次，如果不想给返回值可以直接done()
+webview.on("test").subscribe(([param, done]) => {
+    // 返回值由done传递回去
+    // done必须且仅能执行一次，如果不想给返回值可以直接done()
+    // 当html部分的AutoWeb.auto使用第三个参数时，done将异步返回结果
     done("这是一个返回值")
 
-    toastLog("auto收到了html的hello事件，值是" + param)
+    toastLog("auto收到了html的test事件，值是" + param)
 })
 ```
 
@@ -68,6 +76,10 @@ webview.on("hello").subscribe(([param, done]) => {
         console.log("password is: " + password)
         return "success"
     }
+
+    // 将一个函数设置成auto可调用的类型
+    // 与上面的window.show等价，devicelly是为了便于在组件化前端框架中调用组件函数
+    AutoWeb.devicelly("show", function (username, password) {})
 </script>
 ```
 
@@ -97,6 +109,8 @@ webview.runHtmlFunction("show", "molysama", "123456").subscribe((value) => {
 ```
 
 ## API
+
+@auto.pro/webview
 
 -   run: function(path: string, option?: object)
 
@@ -159,3 +173,20 @@ webview.runHtmlFunction("show", "molysama", "123456").subscribe((value) => {
         执行一行`html`的`javascript`代码，用法见上方示例。
 
 `runHtmlFunction`和`runHtmlJS`返回的都是`RxJS`的可观察对象，[这里是一些基本用法](/example/ob)。
+
+@auto.pro/web
+
+-   auto: function(eventName: string, params?: any, callback?: Function)  
+     html 向 auto 主动发出通信事件
+    -   eventName: 要触发的 auto 通信事件
+    -   params: 要传递的参数
+    -   callback: auto 返回结果后的回调，使用此参数时整个通信将变为异步
+-   devicelly: function(fnName: string, fn: function, self: any, once?: boolean)  
+     设置一个可供 auto 执行的函数
+    -   fnName: 绑定到 window 上的函数名
+    -   fn: 要绑定的函数
+    -   self: 可自定义 fn 的指针
+    -   once: 此函数是否只能执行一次，默认为 false 可一直执行。
+-   removeDevicelly: function(fnName: string)  
+     移除绑定的函数
+    -   fnName: 要移除的函数名
