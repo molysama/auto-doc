@@ -21,23 +21,21 @@ npm i "@auto.pro/web" -S
 <!-- assets/index.html -->
 
 <!-- web.js为@auto.pro/web包的src/index.js，可直接从node_modules文件夹里找到 -->
-<script src="web.js">
-    <script>
+<script src="web.js"></script>
+<script>
+    function fn() {
+        alert("fn")
+    }
 
-        function fn () {
-            alert('fn')
-        }
+    document.documentElement.onclick = function () {
+        // 触发auto的test通信事件，传递参数为123，不使用第三个参数时，html会等待auto的结果
+        const result = AutoWeb.auto("test", 123)
 
-        document.documentElement.onclick = function () {
-            // 触发auto的test通信事件，传递参数为123，不使用第三个参数时，html会等待auto的结果
-            const result = AutoWeb.auto('test', 123)
-
-            // 触发auto的test通信事件，传递参数为123，并指定为异步响应，异步响应可以接收到多个参数
-            AutoWeb.auto('test', 123, function (param1, param2, ...paramN) {
-                // auto端执行done后，将会执行此函数
-            })
-
-        }
+        // 触发auto的test通信事件，传递参数为123，并指定为异步响应，异步响应可以接收到多个参数
+        AutoWeb.auto("test", 123, function (param1, param2, ...paramN) {
+            // auto端执行done后，将会执行此函数
+        })
+    }
 </script>
 ```
 
