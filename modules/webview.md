@@ -176,6 +176,10 @@ webview.runHtmlFunction("show", "molysama", "123456").subscribe((value) => {
 
 @auto.pro/web
 
+-   setMode: function (mode: string)  
+    为了方便调试，可将模式设置成打印类型
+    mode: 'prompt' | 'console.log'
+
 -   auto: function(eventName: string, params?: any, callback?: Function)  
      html 向 auto 主动发出通信事件
     -   eventName: 要触发的 auto 通信事件
